@@ -1,0 +1,37 @@
+name: FinanceSaaS CI/CD Pipeline
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: |
+            Backend/package.json
+            Frontend/package.json
+
+      - name: Install & Test Backend
+        run: |
+          cd Backend
+          npm ci
+          # Test run (if test files configured)
+          # npm test
+
+      - name: Install & Build Frontend
+        run: |
+          cd Frontend
+          npm ci
+          npm run build

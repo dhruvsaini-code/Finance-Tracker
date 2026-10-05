@@ -5,9 +5,12 @@ node_modules/
 
 # Testing
 /coverage
+coverage/
 
 # Production
+dist/
 /dist
+build/
 /build
 
 # Environment
